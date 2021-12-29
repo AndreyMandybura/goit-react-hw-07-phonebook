@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
 import { getContacts } from '../../redux/contacts/contacts-selector';
-import actions from '../../redux/contacts/contacts-actions';
+import { addContact } from '../../redux/contacts/contacts-operations';
 import s from './ContactForm.module.css';
 
-function ContactForm({ onSubmit }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ function ContactForm({ onSubmit }) {
     contacts.map(contact => contact.name).includes(name) ||
     contacts.map(contact => contact.number).includes(number)
       ? alert(`${name} is already in contacts.`)
-      : dispatch(actions.addContact({ id: nanoid(), name, number }));
+      : dispatch(addContact({ name, number }));
 
     setNumber('');
     setName('');
